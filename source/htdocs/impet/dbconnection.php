@@ -133,7 +133,9 @@ function sqlDisplayTable ($query, $params = array(), $headers = '') {
 			}
 			$i++;
 		}
-		if (	$_SESSION['can_delete']=='+' //permission on user role
+		
+		if ( isset( $_SESSION['can_delete'] ) && isset( $row['CAN_MODIFY'] )	
+		    && $_SESSION['can_delete']=='+' //permission on user role
 			&&  $row['CAN_MODIFY']=='1'  //confine calendar
 			&& strpos($row['OWNER'], $_SESSION['username']) !== false //owner on class
 			) { 
