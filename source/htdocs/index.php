@@ -80,6 +80,8 @@
 				</form>
 			  </div>
 		</div>
+		<br/>Aby przeglądać rozkłady zajęć bez logowania kliknij tutaj
+		<input tabindex="3" type="button" class="btn btn-primary" value="Rozkłady zajęć" onclick="self.location.href='./quickInfo.php'"  />
     </div>
     <div class="col-sm-3">
 	</div>

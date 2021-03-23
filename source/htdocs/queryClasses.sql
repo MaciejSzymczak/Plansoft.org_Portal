@@ -50,9 +50,9 @@ WHERE FOR_ID = FRM.ID
  and SUB.ORGUNI_ID = sou.ID(+)
  --and CLASSES.ID in (SELECT CLA_ID FROM LEC_CLA WHERE LEC_ID =:LEC_ID)
  and (CLASSES.DAY, CLASSES.HOUR) in (select day, hour from res_hints where res_id=:confineCalId)
- and classes.id in ((select cla_id from lec_cla where lec_id in (select id from lecturers where LECTURERS.ID IN (SELECT LEC_ID FROM LEC_PLA WHERE PLA_ID = :PLA_ID) )) /*union all select id from classes where calc_lec_ids is null*/)
- --and classes.id in ((select cla_id from gro_cla where gro_id in (select id from groups    where GROUPS.ID IN (SELECT GRO_ID FROM GRO_PLA WHERE PLA_ID = :PLA_ID) )) union all select id from classes where calc_gro_ids is null)
- --and classes.id in ((select cla_id from rom_cla where rom_id in (select id from rooms     where ROOMS.ID IN (SELECT ROM_ID FROM ROM_PLA WHERE PLA_ID = :PLA_ID) )) union all select id from classes where calc_rom_ids is null)
+ and (classes.id in ((select cla_id from lec_cla where lec_id in (select id from lecturers where LECTURERS.ID IN (SELECT LEC_ID FROM LEC_PLA WHERE PLA_ID = :PLA_ID) )) /*union all select id from classes where calc_lec_ids is null*/)
+   or classes.id in ((select cla_id from gro_cla where gro_id in (select id from groups    where GROUPS.ID    IN (SELECT GRO_ID FROM GRO_PLA WHERE PLA_ID = :PLA_ID) ))) /*union all select id from classes where calc_gro_ids is null)*/
+   or classes.id in ((select cla_id from rom_cla where rom_id in (select id from rooms     where ROOMS.ID     IN (SELECT ROM_ID FROM ROM_PLA WHERE PLA_ID = :PLA_ID) )))) /*union all select id from classes where calc_rom_ids is null)*/
  --and (classes.sub_id in (select id from subjects  where SUBJECTS.ID IN (SELECT SUB_ID FROM SUB_PLA WHERE PLA_ID = :PLA_ID)) or classes.sub_id is null)
  --and (classes.for_id in (select id from forms     where FORMS.ID IN (SELECT FOR_ID FROM FOR_PLA WHERE PLA_ID = :PLA_ID)) or classes.for_id is null )
 order by classes.day desc, CLASSES.HOUR
