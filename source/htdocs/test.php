@@ -4,7 +4,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 'On');
  
 $username = "planner";                  // Use your username
-$password = "qaz123";             // and your password
+$password = "...";             // and your password
 $database = "//localhost:1521/xe";   // and the connect string to connect to your database
  
 $query = "select 'śźń' test from dual";
