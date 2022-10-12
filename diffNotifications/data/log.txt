@@ -1,0 +1,13 @@
+2022-10-03 05:14:21 GMT *** START ***
+2022-10-03 05:14:22 GMT Message has been sent to fname.lastname@domain.pl
+2022-10-03 05:14:22 GMT Message has been sent to fname.lastname@domain.pl
+2022-10-03 05:14:22 GMT Message has been sent to fname.lastname@domain.pl
+2022-10-03 05:14:22 GMT Message has been sent to fname.lastname@domain.pl
+2022-10-03 05:14:22 GMT Message has been sent to fname.lastname@domain.pl
+2022-10-03 05:14:22 GMT Message has been sent to fname.lastname@domain.pl
+2022-10-03 05:14:22 GMT Message has been sent to fname.lastname@domain.pl
+2022-10-03 05:14:22 GMT Message has been sent to fname.lastname@domain.pl
+2022-10-03 05:14:30 GMT Message has NOT been sent to 'fname.lastname@domain.pl'. Example error: SMTP server error: MAIL FROM command failed Detail: Message submission rate for this client has exceeded the configured limit
+ SMTP code: 421 Additional SMTP info: 4.4.2SMTP server error: MAIL FROM command failed Detail: Message submission rate for this client has exceeded the configured limit
+ SMTP code: 421 Additional SMTP info: 4.4.2
+2022-10-03 05:14:32 GMT *** STOP ***
