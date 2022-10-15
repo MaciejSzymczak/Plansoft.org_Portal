@@ -41,12 +41,11 @@ function sendEmail($emailTo, $subject, $content)
 		$mail->SMTPDebug = SMTP::DEBUG_SERVER;                     
 		$mail->isSMTP();                                           
 		$mail->Host       = $SMTP_Host;                     
-		$mail->SMTPAuth   = true;                                  
+		$mail->SMTPAuth   = $SMTP_Auth;                                  
 		$mail->Username   = $SMTP_Username;                   
 		$mail->Password   = $SMTP_Password;                     
 		$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;        
 		$mail->Port       = $SMTP_Port;
-		//required by host prdexch01.wat.edu.pl (not required by mail.wat.edu.pl)
 		$mail->SMTPOptions = [
         'ssl' => [
                 'verify_peer' => false,
@@ -55,12 +54,9 @@ function sendEmail($emailTo, $subject, $content)
 		
 		//Recipients
 		$mail->setFrom($SMTP_From_Email, $SMTP_From_Name);
-		//$mail->addAddress('soft@home.pl');               //Name is optional
-		$mail->addAddress('ext.mszy@wat.edu.pl');       
-		$mail->addAddress('zbigniew.ciolek@wat.edu.pl');      
-		$mail->addAddress('cezary.wisniewski@wat.edu.pl');     
-		$mail->addAddress('zdzislaw.bociarski@wat.edu.pl');           
-		//$mail->addReplyTo('no-reply@wat.edu.pl', 'Information');
+		$mail->addAddress($emailTo);               //Name is optional
+
+		//$mail->addReplyTo('no-reply@domain.pl', 'Information');
 		//$mail->addCC('bcc@example.com');
 		//$mail->addBCC('bcc@example.com');
 
@@ -75,7 +71,7 @@ function sendEmail($emailTo, $subject, $content)
 
 		$mail->send();
 		writeToLog('Message has been sent to '.$emailTo);
-		sleep(1);
+		//sleep(1);
 	} catch (Exception $e) {
 		writeToLog("Message has NOT been sent to '.$emailTo.'. Mailer Error: {$mail->ErrorInfo}");
 	}
@@ -115,6 +111,7 @@ function main() {
 		and for_id = frm.id
 		and dim = 'DIFF' 
 		and lec.email is not null
+		and lec.id in (select id from lecturers where diff_notifications = '+' and email is not null)
 	  order by  
 		   lec.Email
 		 , lec.title
@@ -134,7 +131,6 @@ function main() {
 		 , sum 
 		 , diff_flag
 	";
-	//!!!	and lec.id in (select id from lecturers where diff_notifications = '+' and email is not null)
 	 
 	$connection = oci_connect($username, $password, $database);
 	if (!$connection) {
@@ -184,7 +180,6 @@ function main() {
 
 	Witaj!<br/>
 	<br/>
-	*** TEST. ROZWIAZANIE JESZCZE NIE FUNKCJONUJE W PEŁNI, TYLKO NIEKTÓRE EMAILE SĄ WYSYŁANE. CIĄG DALSZY NASTĄPI ***
 	
 	Wprowadzono zmiany w Twoim rozkładzie zajęć.<br/>
 	Ten email został wysłany automatycznie, prosimy na niego nie odpowiadać.<br/>
@@ -215,6 +210,7 @@ function main() {
 	<table role="presentation" border="0" cellspacing="0" width="100%">
 	<tr>
 	<td> 
+	<small><span style="font-size:12px; color:#bdc3c7;">Email został wygenerowany za pomocą oprogramowania  <a href="http://www.plansoft.org/">plansoft.org</a></span></small>
 	</td>
 	</tr>
 	</table> 
@@ -271,7 +267,9 @@ function main() {
 		}
 	}
 
-	sendEmail($priorEmail, "Powiadomienie o zmianach w rozkładach zajęć", $body.$tableTail);
+	if ($firstEntry==false) {
+		sendEmail($priorEmail, "Powiadomienie o zmianach w rozkładach zajęć", $body.$tableTail);
+	}
 	writeToLog("*** STOP ***");
 }
 
