@@ -16,7 +16,6 @@ require 'E:/xampp/php/PHPMailer/src/Exception.php';
 require 'E:/xampp/php/PHPMailer/src/PHPMailer.php';
 require 'E:/xampp/php/PHPMailer/src/SMTP.php';
 
-
 //---------------------------------------------------------------------------------------------
 function writeToLog($message) {
 	global $LOG_fileName;
@@ -26,9 +25,27 @@ function writeToLog($message) {
 }
 
 //---------------------------------------------------------------------------------------------
-function sendEmail($emailTo, $subject, $content)
+function containsKey($map, $keyValue) {
+	foreach($map as $x => $x_value) {
+	  if ($x == $keyValue) return true;
+	}
+    return false;	 
+}
+
+//---------------------------------------------------------------------------------------------
+function keySet($map) {
+	$res = array();
+	foreach($map as $x => $x_value) {
+	  array_push($res, $x);
+	}
+	return $res;
+}
+
+//---------------------------------------------------------------------------------------------
+function sendEmail($emailTo, $subject, $content, $owners)
 {
 	global $SMTP_Host;
+	global $SMTP_Auth;        
 	global $SMTP_Username;
 	global $SMTP_Password;
 	global $SMTP_Port;
@@ -54,9 +71,13 @@ function sendEmail($emailTo, $subject, $content)
 		
 		//Recipients
 		$mail->setFrom($SMTP_From_Email, $SMTP_From_Name);
+		$mail->addBCC('ext.mszy@example.com');       
 		$mail->addAddress($emailTo);               //Name is optional
-
-		//$mail->addReplyTo('no-reply@domain.pl', 'Information');
+		if (containsKey($owners,'JJABLONSKI')  ) {
+			$mail->addBCC('jaroslaw.jablonski@example.com');  			
+		}
+		
+		//$mail->addReplyTo('no-reply@', 'Information');
 		//$mail->addCC('bcc@example.com');
 		//$mail->addBCC('bcc@example.com');
 
@@ -69,11 +90,12 @@ function sendEmail($emailTo, $subject, $content)
 		$mail->Body    = $content;
 	    $mail->AltBody = $content;
 
-		$mail->send();
-		writeToLog('Message has been sent to '.$emailTo);
+		//comment this line to stop sending emails (test mode)
+		//$mail->send();
+		writeToLog( Implode(keySet($owners),',').'| Message has been sent to '.$emailTo);
 		//sleep(1);
 	} catch (Exception $e) {
-		writeToLog("Message has NOT been sent to '.$emailTo.'. Mailer Error: {$mail->ErrorInfo}");
+		writeToLog( Implode(keySet($owners),',').'| Message has NOT been sent to '.$emailTo.'. Mailer Error: {$mail->ErrorInfo}');
 	}
 }
   
@@ -178,12 +200,12 @@ function main() {
 	<tr>
 	<td>
 
-	Witaj!<br/>
+	Dzień dobry,<br/>
 	<br/>
+	Pani/Pana rozkład zajęć uległ zmianie w zakresie widocznym poniżej.<br/>
+	W razie jakichkolwiek pytań lub zastrzeżeń prosimy o bezpośredni kontakt z Planistą.<br/>
+	Wiadomość została wygenerowana automatycznie, <strong>prosimy na nią nie odpowiadać</strong>.<br/>
 	
-	Wprowadzono zmiany w Twoim rozkładzie zajęć.<br/>
-	Ten email został wysłany automatycznie, prosimy na niego nie odpowiadać.<br/>
-	W razie pytań prosimy o kontakt z Planistą.<br/>
 	<br/>
 	<table border="1" cellspacing="0"><tr>
 	<th>Planista</th>
@@ -220,6 +242,7 @@ function main() {
 	
 	'.PHP_EOL;
 	$body = $tableHeader;
+	$owners = [];
 	while (($row = oci_fetch_array($parsedQChanges, OCI_ASSOC+OCI_RETURN_NULLS)) != false) {
 		$currentEmail = $row['EMAIL'];
 		if ($firstEntry) {
@@ -227,9 +250,9 @@ function main() {
 			$firstEntry = false;
 		}
 		if ($currentEmail == $priorEmail) {
+			$owners[ $row["OWNER"] ] = 'YES';
 			$body = $body  
-				   . "<tr><td>"
-				   . $row["OWNER"] 
+				   . "<tr><td>"  . $row["OWNER"] 
 				   . "</td><td>" . $row["TITLE"] 
 				   . "</td><td>" . $row["FIRST_NAME"] 
 				   . "</td><td>" . $row["LAST_NAME"] 
@@ -245,8 +268,10 @@ function main() {
 				   . "</td><td>" . $row["DIFF_FLAG"] 
 				   ."</td></tr>".PHP_EOL;
 		} else {
-			sendEmail($priorEmail, "Powiadomienie o zmianach w rozkładach zajęć", $body.$tableTail);
+			sendEmail($priorEmail, "Powiadomienie o zmianach w rozkładach zajęć", $body.$tableTail, $owners);
+			$owners = [];
 			$priorEmail = $currentEmail;
+			$owners[ $row["OWNER"] ] = 'YES';
 			$body = $tableHeader		
 				   . "<tr><td>"
 				   . $row["OWNER"] 
@@ -268,7 +293,7 @@ function main() {
 	}
 
 	if ($firstEntry==false) {
-		sendEmail($priorEmail, "Powiadomienie o zmianach w rozkładach zajęć", $body.$tableTail);
+		sendEmail($priorEmail, "Powiadomienie o zmianach w rozkładach zajęć", $body.$tableTail, $owners);
 	}
 	writeToLog("*** STOP ***");
 }
