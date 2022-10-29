@@ -90,8 +90,8 @@ function sendEmail($emailTo, $subject, $content, $owners)
 		$mail->Body    = $content;
 	    $mail->AltBody = $content;
 
-		//comment this line to stop sending emails (test mode)
-		//$mail->send();
+		//comment this line to STOP sending emails (test mode)
+		$mail->send();
 		writeToLog( Implode(keySet($owners),',').'| Message has been sent to '.$emailTo);
 		//sleep(1);
 	} catch (Exception $e) {
