@@ -41,9 +41,51 @@ function keySet($map) {
 	return $res;
 }
 
+
+//---------------------------------------------------------------------------------------------
+function containsIgnoreCase ($str , $searchFor) {
+  $str = strtoupper($str);
+  $searchFor = strtoupper($searchFor);
+  if ( strlen(strpos($str, $searchFor))==0) { return false;} 
+  else { return true; }  
+}
+
+
+//---------------------------------------------------------------------------------------------
+function blockingRule ($ruleName, $user, $allowKeyWord, $owners, $emailTo, $content) {
+	if ( strtoupper($emailTo)==strtoupper($user) ) { 
+		if ( containsIgnoreCase($content,$allowKeyWord)==false ) { 
+			writeToLog( '***| Message blocked by the rule: '.$ruleName.' EmailTo:'.$emailTo); return true; 
+		} else {
+			writeToLog( '***| Message allowed by the rule: '.$ruleName.' EmailTo:'.$emailTo); return false; 			
+		}
+	}
+	return false;
+}
+
 //---------------------------------------------------------------------------------------------
 function sendEmail($emailTo, $subject, $content, $owners)
 {
+	//Test mode
+	$blockEmails = false;
+
+	//blocking rules
+	if (blockingRule ('FIZYKA_ONLY', 'urszula.chodorow@wat.edu.pl', 'FIZYKA', $owners, $emailTo, $content)) return;
+		
+	//cc Rules
+	$ccRules = [
+	  "JJABLONSKI"      => 'jaroslaw.jablonski@wat.edu.pl'
+	, "WEL_ZBOCIARSKI1" => 'zdzislaw.bociarski@wat.edu.pl,magdalena.ponurska@wat.edu.pl'
+	, "WEL_ZBOCIARSKI2" => 'zdzislaw.bociarski@wat.edu.pl,magdalena.ponurska@wat.edu.pl'
+	, "WEL_MPONURSKA1"  => 'zdzislaw.bociarski@wat.edu.pl,magdalena.ponurska@wat.edu.pl'
+	, "WEL_MPONURSKA2"  => 'zdzislaw.bociarski@wat.edu.pl,magdalena.ponurska@wat.edu.pl'
+	, "BPLATA"          => 'boguslaw.plata@wat.edu.pl,michal.szymerski@wat.edu.pl'
+	, "MSZYMERSKI"      => 'boguslaw.plata@wat.edu.pl,michal.szymerski@wat.edu.pl'
+	, "JJABLONSKI"      => 'jaroslaw.jablonski@wat.edu.pl'
+	, "CWISNIEWSKI"     => 'cezary.wisniewski@wat.edu.pl'
+	, "SWDOWIAK"        => 'stanislaw.wdowiak@wat.edu.pl'
+	];
+	
 	global $SMTP_Host;
 	global $SMTP_Auth;        
 	global $SMTP_Username;
@@ -71,15 +113,23 @@ function sendEmail($emailTo, $subject, $content, $owners)
 		
 		//Recipients
 		$mail->setFrom($SMTP_From_Email, $SMTP_From_Name);
-		$mail->addBCC('ext.mszy@example.com');       
 		$mail->addAddress($emailTo);               //Name is optional
-		if (containsKey($owners,'JJABLONSKI')  ) {
-			$mail->addBCC('jaroslaw.jablonski@example.com');  			
+		$mail->addBCC('ext.mszy@wat.edu.pl');       
+		$mail->addBCC('zbigniew.ciolek@wat.edu.pl');         
+
+		//cc Rules
+		foreach($ccRules as $key => $value) {
+			if (containsKey($owners,$key)  ) {
+				$ccEmails = explode(',', $value );
+					foreach($ccEmails as $ccEmail) {
+						$mail->addCC($ccEmail);  
+						writeToLog('CC rule applied. Owner:'.$key.' ccAddress:'.$ccEmail);						
+					}
+			}
 		}
 		
-		//$mail->addReplyTo('no-reply@', 'Information');
+		//$mail->addReplyTo('no-reply@wat.edu.pl', 'Information');
 		//$mail->addCC('bcc@example.com');
-		//$mail->addBCC('bcc@example.com');
 
 		//Attachments
 		//$mail->addAttachment('test.jpg');    
@@ -89,13 +139,15 @@ function sendEmail($emailTo, $subject, $content, $owners)
 		$mail->Subject = $subject;
 		$mail->Body    = $content;
 	    $mail->AltBody = $content;
-
-		//comment this line to STOP sending emails (test mode)
-		$mail->send();
+		
+		if ($blockEmails == false) {
+			$mail->send();			
+		}
+		
 		writeToLog( Implode(keySet($owners),',').'| Message has been sent to '.$emailTo);
 		//sleep(1);
 	} catch (Exception $e) {
-		writeToLog( Implode(keySet($owners),',').'| Message has NOT been sent to '.$emailTo.'. Mailer Error: {$mail->ErrorInfo}');
+		writeToLog( Implode(keySet($owners),',').'| Message has NOT been sent to '.$emailTo.' Mailer Error: ' . $mail->ErrorInfo);
 	}
 }
   
