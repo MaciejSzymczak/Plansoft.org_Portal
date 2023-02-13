@@ -186,6 +186,7 @@ function main() {
 		and dim = 'DIFF' 
 		and lec.email is not null
 		and lec.id in (select id from lecturers where diff_notifications = '+' and email is not null)
+		sub.diff_notifications = '+'
 	  order by  
 		   lec.Email
 		 , lec.title
