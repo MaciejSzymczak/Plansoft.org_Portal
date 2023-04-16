@@ -1,62 +1,82 @@
 ﻿<?php
 
+
+//cd c:\plansoft.org_DiffNotif\bin
+//c:\xampp\php\php.exe testSendEmailPHPMAILER.php
+
+
 require_once('..\conf\connection.php');
 
-//Import PHPMailer classes into the global namespace
-//These must be at the top of your script, not inside a function
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-require 'E:/xampp/php/PHPMailer/src/Exception.php';
-require 'E:/xampp/php/PHPMailer/src/PHPMailer.php';
-require 'E:/xampp/php/PHPMailer/src/SMTP.php';
-//Load Composer's autoloader
-//require 'vendor/autoload.php';
 
-//Create an instance; passing `true` enables exceptions
-$mail = new PHPMailer(true);
+require 'C:/xampp/php/PHPMailer/src/Exception.php';
+require 'C:/xampp/php/PHPMailer/src/PHPMailer.php';
+require 'C:/xampp/php/PHPMailer/src/SMTP.php';
 
-try {
-    //Server settings
-    $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
-    $mail->isSMTP();                                            //Send using SMTP
-    $mail->Host       = $SMTP_Host;                     //Set the SMTP server to send through
-    $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-    $mail->Username   = $SMTP_Username;                     //SMTP username
-    $mail->Password   = $SMTP_Password;                               //SMTP password
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;            //Enable implicit TLS encryption
-    $mail->Port       = $SMTP_Port;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
-    //Recipients
-    $mail->setFrom($SMTP_From_Email, 'Test name');
-    $mail->addAddress('soft@home.pl','Name');               //Name is optional
-    $mail->addAddress('soft@home.pl','Name');               //Name is optional
-    //$mail->addReplyTo('no-reply@example.com', 'Information');
-    //$mail->addCC('bcc@example.com');
-    //$mail->addBCC('bcc@example.com');
+error_reporting(-1);
+ini_set('display_errors', 'On');
 
-    //Attachments
-    //$mail->addAttachment('test.jpg');    
-    //$mail->addAttachment('sendmail.txt');
-    //Content
-    $mail->CharSet = 'UTF-8';
-    $mail->isHTML(true);                                  //Set email format to HTML
-    $mail->Subject = 'TEST';
-    $mail->Body    = '<html>
-<head><meta http-equiv=Content-Type content="text/html; charset=utf-8">
-</head>
-<body> 
-TEST polskich znakow diakrytycznych źródło żrebię jaźń jeść
-<br>
-</body> 
-</html>';
 
-  $mail->AltBody = '--';
+function sendEmail($emailTo, $subject, $content)
+{
+	global $SMTP_Host;
+	global $SMTP_Auth;        
+	global $SMTP_Username;
+	global $SMTP_Password;
+	global $SMTP_Port;
+	global $SMTP_From_Email; 
+	global $SMTP_From_Name;        
+	
+	$mail = new PHPMailer(true);
 
-    $mail->send();
-    echo 'Message has been sent';
-} catch (Exception $e) {
-    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+
+		$mail->SMTPDebug = SMTP::DEBUG_SERVER;                     
+		$mail->isSMTP();                                           
+		$mail->Host       = $SMTP_Host;                     
+		$mail->SMTPAuth   = $SMTP_Auth;                                  
+		$mail->Username   = $SMTP_Username;                   
+		$mail->Password   = $SMTP_Password;                     
+		$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;        
+		$mail->Port       = $SMTP_Port;
+		//$mail->SMTPOptions = [
+        //'ssl' => [
+        //        'verify_peer' => false,
+        //        'verify_peer_name' => false
+        //]];
+		
+		//Recipients
+		$mail->setFrom($SMTP_From_Email, $SMTP_From_Name);
+		$mail->addAddress($emailTo);               //Name is optional
+       
+		
+		//$mail->addReplyTo('no-reply@wat.edu.pl', 'Information');
+		//$mail->addCC('bcc@example.com');
+
+
+		//Attachments
+		//$mail->addAttachment('test.jpg');    
+
+
+		$mail->CharSet = 'UTF-8';
+		$mail->isHTML(true);
+		$mail->Subject = $subject;
+		$mail->Body    = $content;
+	    $mail->AltBody = $content;
+		print "*******************************************************";
+		$mail->send();			
 }
+
+
+
+
+echo "before";
+sendEmail("soft@home.pl","Example Subject: Lubię jeść łąka jaźń","Example Body: Lubię jeść łąka jaźń");
+echo "after";
+
+
 ?>

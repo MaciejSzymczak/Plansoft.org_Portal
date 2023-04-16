@@ -12,6 +12,7 @@ $SMTP_Host       = '...';
 $SMTP_Username   = '...';    
 $SMTP_Password   = '...';      
 $SMTP_Port       = 587;  
+$SMTP_Auth       = true;
 $SMTP_From_Email = '...'; 
 $SMTP_From_Name  = 'Powiadomienia';     
 
