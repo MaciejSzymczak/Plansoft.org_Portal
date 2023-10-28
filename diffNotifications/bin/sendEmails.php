@@ -113,7 +113,12 @@ function sendEmail($emailTo, $subject, $content, $owners)
 		
 		//Recipients
 		$mail->setFrom($SMTP_From_Email, $SMTP_From_Name);
-		$mail->addAddress($emailTo);               //Name is optional
+		//addAddress
+		$emailTo = str_replace(";",",",$emailTo);
+		$emailTo = str_replace(" ","",$emailTo);
+		foreach(explode(",",$emailTo) as $email) {
+		   $mail->addAddress($email);               //Name is optional
+		}
 		$mail->addBCC('ext.mszy@wat.edu.pl');       
 		$mail->addBCC('zbigniew.ciolek@wat.edu.pl');         
 
