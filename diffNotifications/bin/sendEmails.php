@@ -2,7 +2,7 @@
 
 /*
  * Send notification about changes in time table
- * @version 2022.10.12
+ * @version 2023.12.12
  * @author Maciej Szymczak
  */
 
@@ -64,7 +64,27 @@ function blockingRule ($ruleName, $user, $allowKeyWord, $owners, $emailTo, $cont
 }
 
 //---------------------------------------------------------------------------------------------
-function sendEmail($emailTo, $subject, $content, $owners)
+function updateLEC($connection, $id, $diff_message) {
+	if (!$connection) {
+		$m = oci_error();
+		writeToLog( '*** updateLEC: Could not connect to database: '. $m['message'] );
+	}
+	$sql = 'BEGIN update lecturers set diff_message = :diff_message where id=:id; commit; END;';
+	$stmt = oci_parse($connection,$sql);
+	$d = substr($diff_message,0,450);
+	oci_bind_by_name($stmt,':diff_message',$d);
+	oci_bind_by_name($stmt,':id',$id);
+	$success = oci_execute($stmt);
+	if (!$success) {
+		$m = oci_error();
+		return $m;				
+	} else {
+		return null;				
+	}	 
+} 
+
+//---------------------------------------------------------------------------------------------
+function sendEmail($emailTo, $subject, $content, $owners, $connection, $lec_id)
 {
 	//Test mode
 	$blockEmails = false;
@@ -119,7 +139,7 @@ function sendEmail($emailTo, $subject, $content, $owners)
 		foreach(explode(",",$emailTo) as $email) {
 		   $mail->addAddress($email);               //Name is optional
 		}
-		$mail->addBCC('ext.mszy@wat.edu.pl');       
+		//$mail->addBCC('ext.mszy@wat.edu.pl');       
 		$mail->addBCC('zbigniew.ciolek@wat.edu.pl');         
 
 		//cc Rules
@@ -150,9 +170,19 @@ function sendEmail($emailTo, $subject, $content, $owners)
 		}
 		
 		writeToLog( Implode(keySet($owners),',').'| Message has been sent to '.$emailTo);
+		
+		$m = updateLEC($connection, $lec_id, date('Y/m/d h:i:s a', time()).' OK');
+		if (!is_null($m)) {
+			writeToLog( 'SQL ERROR :'.$emailTo.' '.$lec_id.' '.$m);
+		}		
 		//sleep(1);
 	} catch (Exception $e) {
-		writeToLog( Implode(keySet($owners),',').'| Message has NOT been sent to '.$emailTo.' Mailer Error: ' . $mail->ErrorInfo);
+		writeToLog( Implode(keySet($owners),',').'| Message has NOT been sent to '.$emailTo.' ['.$lec_id.'] Mailer Error: ' . $mail->ErrorInfo);
+		$diff_error = '*** ' . date('Y/m/d h:i:s a', time()) . $mail->ErrorInfo; 
+		$m = updateLEC($connection, $lec_id, $diff_error);
+		if (!is_null($m)) {
+			writeToLog( 'SQL ERROR :'.$emailTo.' '.$lec_id.' '.$m);
+		}
 	}
 }
   
@@ -181,6 +211,7 @@ function main() {
 		 , DIFF_CATCHER_HELPER.desc2
 		 , rtrim(to_char(sum, 'FM0.99'), '.')  sum
 		 , decode(diff_flag,'DELETE','Usunięcie','Wstawienie') diff_flag
+		 , lec_id
 	  from DIFF_CATCHER_HELPER
 		 , lecturers lec
 		 , subjects sub
@@ -230,6 +261,7 @@ function main() {
 	}
 
 	$priorEmail = "";
+	$priorLecId = "";
 	$firstEntry = true;  
 	$tableHeader= '
 	<!doctype html>
@@ -305,6 +337,7 @@ function main() {
 		$currentEmail = $row['EMAIL'];
 		if ($firstEntry) {
 			$priorEmail = $currentEmail;
+			$priorLecId = $row["LEC_ID"];
 			$firstEntry = false;
 		}
 		if ($currentEmail == $priorEmail) {
@@ -326,9 +359,10 @@ function main() {
 				   . "</td><td>" . $row["DIFF_FLAG"] 
 				   ."</td></tr>".PHP_EOL;
 		} else {
-			sendEmail($priorEmail, "Powiadomienie o zmianach w rozkładach zajęć", $body.$tableTail, $owners);
+			sendEmail($priorEmail, "Powiadomienie o zmianach w rozkładach zajęć", $body.$tableTail, $owners, $connection, $priorLecId);
 			$owners = [];
 			$priorEmail = $currentEmail;
+			$priorLecId = $row["LEC_ID"];
 			$owners[ $row["OWNER"] ] = 'YES';
 			$body = $tableHeader		
 				   . "<tr><td>"
@@ -351,7 +385,7 @@ function main() {
 	}
 
 	if ($firstEntry==false) {
-		sendEmail($priorEmail, "Powiadomienie o zmianach w rozkładach zajęć", $body.$tableTail, $owners);
+		sendEmail($priorEmail, "Powiadomienie o zmianach w rozkładach zajęć", $body.$tableTail, $owners, $connection, $priorLecId);
 	}
 	writeToLog("*** STOP ***");
 }
