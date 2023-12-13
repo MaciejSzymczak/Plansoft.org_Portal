@@ -171,14 +171,14 @@ function sendEmail($emailTo, $subject, $content, $owners, $connection, $lec_id)
 		
 		writeToLog( Implode(keySet($owners),',').'| Message has been sent to '.$emailTo);
 		
-		$m = updateLEC($connection, $lec_id, date('Y/m/d h:i:s a', time()).' OK');
+		$m = updateLEC($connection, $lec_id, date('Y-m-d H:i:s') .' OK');
 		if (!is_null($m)) {
 			writeToLog( 'SQL ERROR :'.$emailTo.' '.$lec_id.' '.$m);
 		}		
 		//sleep(1);
 	} catch (Exception $e) {
 		writeToLog( Implode(keySet($owners),',').'| Message has NOT been sent to '.$emailTo.' ['.$lec_id.'] Mailer Error: ' . $mail->ErrorInfo);
-		$diff_error = '*** ' . date('Y/m/d h:i:s a', time()) . $mail->ErrorInfo; 
+		$diff_error = '*** ' . date('Y-m-d H:i:s') . $mail->ErrorInfo; 
 		$m = updateLEC($connection, $lec_id, $diff_error);
 		if (!is_null($m)) {
 			writeToLog( 'SQL ERROR :'.$emailTo.' '.$lec_id.' '.$m);
