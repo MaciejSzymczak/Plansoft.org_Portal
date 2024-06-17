@@ -223,6 +223,7 @@ function main() {
 		and lec.email is not null
 		and lec.id in (select id from lecturers where diff_notifications = '+' and email is not null)
 		and sub.diff_notifications = '+'
+		and day >= trunc(sysdate)
 	  order by  
 		   lec.Email
 		 , lec.title
