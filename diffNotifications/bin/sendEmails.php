@@ -2,7 +2,7 @@
 
 /*
  * Send notification about changes in time table
- * @version 2023.12.12
+ * @version 2022.10.12
  * @author Maciej Szymczak
  */
 
@@ -94,17 +94,41 @@ function sendEmail($emailTo, $subject, $content, $owners, $connection, $lec_id)
 		
 	//cc Rules
 	$ccRules = [
-	  "JJABLONSKI"      => 'jaroslaw.jablonski@wat.edu.pl'
-	, "WEL_ZBOCIARSKI1" => 'zdzislaw.bociarski@wat.edu.pl,magdalena.ponurska@wat.edu.pl'
-	, "WEL_ZBOCIARSKI2" => 'zdzislaw.bociarski@wat.edu.pl,magdalena.ponurska@wat.edu.pl'
-	, "WEL_MPONURSKA1"  => 'zdzislaw.bociarski@wat.edu.pl,magdalena.ponurska@wat.edu.pl'
-	, "WEL_MPONURSKA2"  => 'zdzislaw.bociarski@wat.edu.pl,magdalena.ponurska@wat.edu.pl'
+	  "JJABLONSKI"      => 'jaroslaw.jablonski@wat.edu.pl,monika.stachyra@wat.edu.pl'
+	, "MSTACHYRA"       => 'jaroslaw.jablonski@wat.edu.pl,monika.stachyra@wat.edu.pl'
+	//
+	, "WEL_MPONURSKA"   => 'magdalena.ponurska@wat.edu.pl,magdalena.sasin@wat.edu.pl'
+	, "WEL_MPONURSKA2"  => 'magdalena.ponurska@wat.edu.pl,magdalena.sasin@wat.edu.pl'
+	, "WEL_MSASIN"      => 'magdalena.ponurska@wat.edu.pl,magdalena.sasin@wat.edu.pl'
+	, "WEL_MSASIN2"     => 'magdalena.ponurska@wat.edu.pl,magdalena.sasin@wat.edu.pl'
+	//
 	, "BPLATA"          => 'boguslaw.plata@wat.edu.pl,michal.szymerski@wat.edu.pl'
 	, "MSZYMERSKI"      => 'boguslaw.plata@wat.edu.pl,michal.szymerski@wat.edu.pl'
-	, "JJABLONSKI"      => 'jaroslaw.jablonski@wat.edu.pl'
+	//
+	, "JWISNIEWSKI"     => 'jaroslaw.wisniewski@wat.edu.pl'
+	//
+	, "AZENELI"     => 'anna.zeneli@wat.edu.pl'
+	//
 	, "CWISNIEWSKI"     => 'cezary.wisniewski@wat.edu.pl'
-	, "SWDOWIAK"        => 'stanislaw.wdowiak@wat.edu.pl'
+	//
+	, "APAWLOWSKA"       => 'anna.pawlowska@wat.edu.pl,dariusz.podbielski@wat.edu.pl,daniel.nowak@wat.edu.pl'
+	, "DPODBIELSKI"      => 'anna.pawlowska@wat.edu.pl,dariusz.podbielski@wat.edu.pl,daniel.nowak@wat.edu.pl'
+	, "DNOWAK"           => 'anna.pawlowska@wat.edu.pl,dariusz.podbielski@wat.edu.pl,daniel.nowak@wat.edu.pl'
+	//
+	, "SLAZINSKI"       => 'sebastian.lazinski@wat.edu.pl'
+	, "MMICHALUK"       => 'sebastian.lazinski@wat.edu.pl'
+	//
+	, "PJAWORSKI"        => 'pawelp.jaworski@wat.edu.pl,aleksandra.pichola@wat.edu.pl,krzysztof.witulski@wat.edu.pl'
+	, "APICHOLA"         => 'pawelp.jaworski@wat.edu.pl,aleksandra.pichola@wat.edu.pl,krzysztof.witulski@wat.edu.pl'
+	, "KWITULSKI"        => 'pawelp.jaworski@wat.edu.pl,aleksandra.pichola@wat.edu.pl,krzysztof.witulski@wat.edu.pl'
+	//
+	, "SWDOWIAK"        => 'stanislaw.wdowiak@wat.edu.pl,agnieszka.trela@wat.edu.pl'
+	, "ATRELA"          => 'stanislaw.wdowiak@wat.edu.pl,agnieszka.trela@wat.edu.pl'
+	//
+	, "DCZYZEWSKI"      => 'dariusz.czyzewski@wat.edu.pl,anna.rolka@wat.edu.pl'
+	, "AROLKA"          => 'dariusz.czyzewski@wat.edu.pl,anna.rolka@wat.edu.pl'
 	];
+
 	
 	global $SMTP_Host;
 	global $SMTP_Auth;        
@@ -155,7 +179,15 @@ function sendEmail($emailTo, $subject, $content, $owners, $connection, $lec_id)
 		
 		//$mail->addReplyTo('no-reply@wat.edu.pl', 'Information');
 		//$mail->addCC('bcc@example.com');
-
+		
+		if ( containsIgnoreCase($content,"wychowanie fizyczne")==true ) {
+			$mail->addCC('pawelp.jaworski@wat.edu.pl');
+			$mail->addCC('aleksandra.pichola@wat.edu.pl');
+			$mail->addCC('krzysztof.witulski@wat.edu.pl');
+			writeToLog('SWF Included');						
+		}		
+		
+		
 		//Attachments
 		//$mail->addAttachment('test.jpg');    
 
