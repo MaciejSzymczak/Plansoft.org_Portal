@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plansoft.org — system planowania zajęć i rezerwacji zasobów</title>
+<meta name="description" content="Plansoft.org — profesjonalne narzędzie do ręcznego układania rozkładów zajęć, rezerwacji sal i zasobów dla uczelni. Zero konfliktów, wielu planistów, integracja z USOS i Bazus.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='24' y2='24'%3E%3Cstop stop-color='%235b5bf6'/%3E%3Cstop offset='1' stop-color='%2317c3d6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='24' height='24' rx='7' fill='url(%23g)'/%3E%3Cg fill='%23fff'%3E%3Crect x='5' y='5' width='5' height='5' rx='1.2'/%3E%3Crect x='14' y='5' width='5' height='5' rx='1.2' opacity='.85'/%3E%3Crect x='5' y='14' width='5' height='5' rx='1.2' opacity='.85'/%3E%3Crect x='14' y='14' width='5' height='5' rx='1.2' opacity='.6'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a href="#home" class="brand">
+      <span class="mark">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="7" height="7" rx="1.5" fill="#fff"/><rect x="13" y="4" width="7" height="7" rx="1.5" fill="#fff" opacity=".85"/><rect x="4" y="13" width="7" height="7" rx="1.5" fill="#fff" opacity=".85"/><rect x="13" y="13" width="7" height="7" rx="1.5" fill="#fff" opacity=".6"/></svg>
+      </span>
+      Plansoft<span style="color:var(--primary-ink)">.org</span>
+    </a>
+
+    <nav class="nav-links">
+      <a href="#home">Informacje</a>
+      <a href="#faq">FAQ</a>
+      <a href="#wdrozenie">Wdrożenie</a>
+      <a href="#pobierz">Pobierz</a>
+      <a href="#referencje">Referencje</a>
+      <a href="#kontakt">Kontakt</a>
+      <a href="#kontakt" class="btn btn-primary nav-cta-mobile">Umów demo</a>
+    </nav>
+
+    <div class="nav-cta">
+      <a href="https://www.facebook.com/Plansoft.org/" class="btn btn-outline btn-sm" target="_blank" rel="noopener">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-7.6h2.6l.4-3h-3v-1.9c0-.87.24-1.46 1.5-1.46h1.6V4.35C15.9 4.24 15 4.16 13.96 4.16c-2.16 0-3.64 1.32-3.64 3.74v2.1H8v3h2.32V21h3.18Z"/></svg>
+        Facebook
+      </a>
+      <a href="#kontakt" class="btn btn-primary btn-sm">Umów demo</a>
+    </div>
+
+    <button class="nav-toggle" aria-label="Menu"><span></span></button>
+  </div>
+</header>
+
+<main>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="home">
+    <div class="container">
+      <div class="hero-copy">
+        <span class="eyebrow on-dark">System planowania zajęć i rezerwacji zasobów</span>
+        <h1>Rozkłady zajęć <span>bez konfliktów</span>, chaosu i Excela</h1>
+        <p class="lede">
+          Poszukujesz narzędzia dla swojej Uczelni, które pozwoli na sprawne planowanie zajęć w skomplikowanym
+          modelu zależności pomiędzy grupami — planowane jednocześnie przez kilku planistów?
+          Plansoft.org to profesjonalna aplikacja do ręcznego układania rozkładów zajęć, gotowego do publikacji
+          w kalendarzach elektronicznych, na stronie Uczelni lub w systemach takich jak USOS i Bazus.
+        </p>
+        <div class="hero-cta">
+          <a href="#dlaczego" class="btn btn-primary">Zobacz jak to działa</a>
+          <a href="#pobierz" class="btn btn-ghost">Pobierz materiały</a>
+        </div>
+        <div class="hero-stats">
+          <div><strong>15+</strong><span>uczelni i wydziałów w Polsce</span></div>
+          <div><strong>24/7</strong><span>wsparcie i pomoc techniczna</span></div>
+          <div><strong>0</strong><span>konfliktów sal i terminów</span></div>
+        </div>
+      </div>
+
+      <div class="hero-art">
+        <span class="badge-live"><span class="dot"></span> Synchronizacja na żywo</span>
+        <div class="grid-cal">
+          <div class="cal-col">
+            <div class="cal-head">PON</div>
+            <div class="block b1">Wykład A1</div>
+            <div class="block b4">Sala wolna</div>
+            <div class="block b2">Lab. INF2</div>
+          </div>
+          <div class="cal-col">
+            <div class="cal-head">WT</div>
+            <div class="block b4">Sala wolna</div>
+            <div class="block b3">Ćw. ZARZ1</div>
+            <div class="block b1">Wykład B2</div>
+          </div>
+          <div class="cal-col">
+            <div class="cal-head">ŚR</div>
+            <div class="block b2">Sem. 3</div>
+            <div class="block b1">Wykład A1</div>
+            <div class="block b4">Sala wolna</div>
+          </div>
+          <div class="cal-col">
+            <div class="cal-head">CZW</div>
+            <div class="block b3">Ćw. CW2</div>
+            <div class="block b4">Sala wolna</div>
+            <div class="block b2">Lab. INF3</div>
+          </div>
+          <div class="cal-col">
+            <div class="cal-head">PT</div>
+            <div class="block b4">Sala wolna</div>
+            <div class="block b2">Sem. 1</div>
+            <div class="block b1">Wykład C1</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROBLEM / DIAGRAM ============ -->
+  <section class="section" id="problem">
+    <div class="container problem-grid">
+      <div>
+        <span class="eyebrow">Skomplikowane zależności</span>
+        <h2 style="margin-top:16px;">Setki zależności. Kilku planistów. Zero miejsca na błąd.</h2>
+        <p style="margin-top:18px;">
+          Poszukujesz narzędzia, które pozwoli na sprawne planowanie zajęć w skomplikowanym modelu zależności
+          pomiędzy grupami — na przykład takim, jak w modelu przedstawionym na diagramie obok — a na dobitkę
+          planowanie realizowane jest jednocześnie przez kilku planistów?
+        </p>
+        <p><strong>Plansoft.org</strong> to program do ręcznego układania rozkładów zajęć przez jednego lub wielu
+          planistów. Gotowy rozkład jest udostępniany za pomocą kalendarzy elektronicznych, za pomocą stron www
+          lub jest przesyłany do innych systemów, takich jak USOS lub Bazus.</p>
+        <div class="quote-block">
+          Utwórz harmonogram zajęć na swojej Uczelni, korzystając z profesjonalnego narzędzia. Zintegruj się
+          z innym oprogramowaniem uniwersyteckim. Zapomnij o Excelu. Zapomnij o błędach w planowaniu.
+          Uwolnij swoje życie od stresu.
+        </div>
+      </div>
+      <div class="diagram-card">
+        <div class="img-scroll">
+          <img src="assets/graph.svg" alt="Przykładowy model zależności pomiędzy grupami zajęciowymi">
+        </div>
+        <div class="cap">Przykładowy model zależności pomiędzy grupami zajęciowymi na jednym kierunku studiów.</div>
+        <div class="scroll-hint">Przesuń palcem, aby zobaczyć cały diagram →</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DLACZEGO PLANSOFT ============ -->
+  <section class="section soft" id="dlaczego">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Dlaczego Plansoft.org?</span>
+        <h2>Wszystko, czego potrzebuje Twój dział planowania</h2>
+        <p>Dzięki aplikacji już nigdy więcej nie przydzielisz omyłkowo tej samej sali do dwóch różnych zajęć.</p>
+      </div>
+
+      <div class="card-grid">
+        <div class="benefit-card">
+          <div class="icon-tile"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z"/><path d="M9 12l2 2 4-4"/></svg></div>
+          <h3>Zero konfliktów sal</h3>
+          <p>Program pilnuje, byś nigdy nie przydzielił omyłkowo tej samej sali do dwóch różnych zajęć.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="icon-tile"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="4" y="4" width="16" height="4" rx="1.4"/><rect x="4" y="10" width="16" height="4" rx="1.4"/><rect x="4" y="16" width="16" height="4" rx="1.4"/></svg></div>
+          <h3>Każda forma zajęć</h3>
+          <p>Bezbłędnie zaplanujesz zajęcia dla grup wykładowych, ćwiczeniowych, laboratoryjnych i seminaryjnych — bez kolizji.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="icon-tile"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><circle cx="7" cy="7" r="3"/><circle cx="17" cy="17" r="3"/><path d="M9.5 8.5l5 7"/></svg></div>
+          <h3>Relacje między grupami</h3>
+          <p>Zdefiniujesz zależności pomiędzy grupami, które program wykorzystuje do wykrywania kolizji.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="icon-tile"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="3.5" y="5" width="17" height="15" rx="2.4"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/></svg></div>
+          <h3>Tygodnie parzyste i nieparzyste</h3>
+          <p>Zaplanujesz zajęcia odbywające się cyklicznie co tydzień lub tylko w tygodnie parzyste i nieparzyste.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="icon-tile"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><path d="M5 21V8l7-5 7 5v13"/><path d="M9 21v-6h6v6"/></svg></div>
+          <h3>Nierealizowane zajęcia</h3>
+          <p>Oznaczysz w systemie zajęcia, które nie zostały zrealizowane, bez utraty historii planu.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="icon-tile"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v6c0 1.66 3.13 3 7 3s7-1.34 7-3V6M5 12v6c0 1.66 3.13 3 7 3s7-1.34 7-3v-6"/></svg></div>
+          <h3>Zasoby i preferencje</h3>
+          <p>Przechowasz informacje o dodatkowych zasobach i ulubionych terminach wykładowców.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="icon-tile"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><path d="M6 8a6 6 0 0112 0c0 5 2 6 2 6H4s2-1 2-6Z"/><path d="M10.5 20a1.8 1.8 0 003 0"/></svg></div>
+          <h3>Automatyczne powiadomienia</h3>
+          <p>Nie musisz pamiętać o informowaniu o zmianach — powiadomienia wysyłane są automatycznie.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="icon-tile"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><circle cx="8" cy="8" r="3"/><circle cx="17" cy="9" r="2.4"/><path d="M3 20c0-3 2.5-5 5-5s5 2 5 5M14.5 20c0-2.2 1.7-4 4-4s4 1.8 4 4"/></svg></div>
+          <h3>Wielu planistów naraz</h3>
+          <p>Wspólna pula zasobów dla dowolnej liczby planistów — zmiany są widoczne dla innych natychmiast.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="icon-tile"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><ellipse cx="12" cy="5" rx="7" ry="2.6"/><path d="M5 5v14c0 1.4 3.1 2.6 7 2.6s7-1.2 7-2.6V5"/><path d="M5 12c0 1.4 3.1 2.6 7 2.6s7-1.2 7-2.6"/></svg></div>
+          <h3>Relacyjna baza danych</h3>
+          <p>Dane trzymane są na sprzęcie Uczelni — łatwo je analizować i integrować z innymi systemami.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ W SKRÓCIE / MINDMAP ============ -->
+  <section class="section" id="skrocie">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Plansoft.org w skrócie</span>
+        <h2>Cała aplikacja na jednej mapie</h2>
+      </div>
+      <div class="overview-card">
+        <div class="img-scroll">
+          <img src="assets/mindmap.png" alt="Mapa funkcjonalności systemu Plansoft.org" loading="lazy">
+        </div>
+        <div class="cap">Pełna mapa funkcjonalności systemu Plansoft.org.</div>
+        <div class="scroll-hint">Przesuń, aby przejrzeć całą mapę ↕ ↔</div>
+        <div style="text-align:center;">
+          <a class="zoom-link" href="assets/mindmap.png" target="_blank" rel="noopener">Otwórz pełny obraz w nowej karcie ↗</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WDROŻENIE ============ -->
+  <section class="section soft" id="wdrozenie">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Wdrożenie</span>
+        <h2>Jak wdrożyć aplikację?</h2>
+        <p>Wdrożenie Plansoft.org przebiega według sprawdzonego, pięcioetapowego schematu.</p>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <div class="num">1</div>
+          <div><h4>Zapoznanie się z aplikacją</h4><p>Uczelnia zapoznaje się z dwoma filmami dostępnymi na stronie Plansoft.org.</p></div>
+        </div>
+        <div class="step">
+          <div class="num">2</div>
+          <div><h4>Demo na żywo</h4><p>W przypadku zainteresowania organizowane jest godzinne demo, podczas którego prezentowana jest aplikacja i udzielane są odpowiedzi na pytania. Demo odbywa się zdalnie.</p></div>
+        </div>
+        <div class="step">
+          <div class="num">3</div>
+          <div><h4>Przygotowanie danych</h4><p>Uczelnia przesyła pliki Excel z danymi do załadowania do programu (siatka godzinowa, wykładowcy, grupy, sale, przedmioty, formy zajęć, ewentualnie inne informacje, np. struktura grup, którzy wykładowcy prowadzą które przedmioty, lista planistów).</p></div>
+        </div>
+        <div class="step">
+          <div class="num">4</div>
+          <div><h4>Instalacja i wgranie danych</h4><p>Aplikacja jest instalowana na Państwa serwerze. Ładujemy do bazy danych przekazane pliki Excel.</p></div>
+        </div>
+        <div class="step">
+          <div class="num">5</div>
+          <div><h4>Szkolenie planistów</h4><p>Przeprowadzane jest wszechstronne szkolenie dla planistów w Uczelni — z reguły są to dwa dni po cztery godziny. Infolinia jest dla Państwa dostępna 24 godziny na dobę.</p></div>
+        </div>
+      </div>
+
+      <div class="info-cols">
+        <div class="info-box">
+          <h3>Program Plansoft.org — opłaty</h3>
+          <p>Wycenę wdrożenia wykonujemy na podstawie liczby aktywnych planistów (nie wliczamy osób, które tylko czytają plany) oraz ewentualnych wymagań, takich jak integracje.</p>
+          <ul>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg> Opłata jednorazowa — brak opłat subskrypcyjnych</li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg> Nieograniczona liczba wykładowców, grup i zasobów</li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg> Program objęty roczną gwarancją</li>
+          </ul>
+        </div>
+        <div class="info-box">
+          <h3>Pakiet wsparcia</h3>
+          <p>Produkt jest sprzedawany z rocznym pakietem wsparcia. Pakiet można wykupić w kolejnych latach — minimalny okres świadczenia usług to 6 miesięcy, najdłuższy 2 lata. Wsparcie obejmuje:</p>
+          <ul>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg> doraźną pomoc dla użytkowników systemu (asysta 24h)</li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg> pomoc w wykonywaniu zestawień i raportów</li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg> analizę potrzeb Uczelni</li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg> bezpłatne pobieranie aktualizacji programu</li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg> pomoc techniczną i administrację serwerem bazy danych Oracle</li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg> pomoc w skonfigurowaniu kopii bezpieczeństwa</li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg> wykonywanie niewielkich zmian w kodzie programu</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="compat-strip">
+        <div><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg> Windows XP – Windows 11</div>
+        <div><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><ellipse cx="12" cy="5" rx="7" ry="2.4"/><path d="M5 5v14c0 1.3 3.1 2.4 7 2.4s7-1.1 7-2.4V5"/></svg> Każda wersja Oracle — również darmowa 23C XE</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ POBIERZ ============ -->
+  <section class="section" id="pobierz">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Pobierz</span>
+        <h2>Materiały, instrukcje i dokumentacja</h2>
+        <p>Zapewniamy bezpłatną pomoc w instalacji programu — poniżej znajdziesz wszystkie potrzebne pliki.</p>
+      </div>
+
+      <div class="download-grid">
+        <div class="download-col">
+          <h3>Instalacja</h3>
+          <div class="sub">Pliki potrzebne do uruchomienia aplikacji na stacji roboczej</div>
+          <ul>
+            <li><a class="file-link" href="http://plansoft.org/wp-content/uploads/pdf/install.zip">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8l-5-5Z"/><path d="M14 3v5h5"/></svg>
+              Wersja instalacyjna programu</a></li>
+            <li><a class="file-link" href="https://www.plansoft.org/wp-content/uploads/pdf/InstrukcjaInstalacjiStacjaRobocza.pdf">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8l-5-5Z"/><path d="M14 3v5h5"/></svg>
+              Instrukcja instalacji</a></li>
+          </ul>
+        </div>
+
+        <div class="download-col">
+          <h3>Dla planistów</h3>
+          <div class="sub">Podręczniki, FAQ i integracje z innymi systemami</div>
+          <div class="grp">Najczęściej zadawane pytania</div>
+          <ul>
+            <li><a class="file-link" href="http://plansoft.org/wp-content/uploads/pdf/HowTo.JakZarzadzacKalendarzami.chg.pdf"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8l-5-5Z"/><path d="M14 3v5h5"/></svg>Jak zarządzać kalendarzami elektronicznymi?</a></li>
+            <li><a class="file-link" href="http://plansoft.org/wp-content/uploads/pdf/HowTo.JakZnalezcWolneSale.pdf"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8l-5-5Z"/><path d="M14 3v5h5"/></svg>Jak znaleźć wolną salę?</a></li>
+            <li><a class="file-link" href="http://plansoft.org/wp-content/uploads/pdf/HowTo.PlanStudiow.chg.pdf"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8l-5-5Z"/><path d="M14 3v5h5"/></svg>Jak używać planu studiów?</a></li>
+          </ul>
+          <div class="grp" style="margin-top:14px;">Podręczniki</div>
+          <ul>
+            <li><a class="file-link" href="http://plansoft.org/wp-content/uploads/pdf/Podrecznik_uzytkownika_Plansoft.org.pdf"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8l-5-5Z"/><path d="M14 3v5h5"/></svg>Podręcznik użytkownika</a></li>
+            <li><a class="file-link" href="http://plansoft.org/wp-content/uploads/pdf/WspolpracaZespoluPlanistow.pdf"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8l-5-5Z"/><path d="M14 3v5h5"/></svg>Współpraca zespołu planistów</a></li>
+            <li><a class="file-link" href="http://plansoft.org/wp-content/uploads/pdf/Publikacja.pdf"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8l-5-5Z"/><path d="M14 3v5h5"/></svg>Publikacja rozkładów zajęć</a></li>
+            <li><a class="file-link" href="http://plansoft.org/wp-content/uploads/pdf/Publikacja_iKalendarze.pdf"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8l-5-5Z"/><path d="M14 3v5h5"/></svg>Publikacja za pomocą Kalendarzy Elektronicznych</a></li>
+            <li><a class="file-link" href="http://plansoft.org/wp-content/uploads/pdf/Powiadomienia_o_zmianach.pdf"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8l-5-5Z"/><path d="M14 3v5h5"/></svg>Powiadomienia e-mail o zmianach w rozkładach</a></li>
+            <li><a class="file-link" href="http://plansoft.org/wp-content/uploads/pdf/Raportowanie.pdf"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8l-5-5Z"/><path d="M14 3v5h5"/></svg>Raportowanie</a></li>
+            <li><a class="file-link" href="http://plansoft.org/wp-content/uploads/pdf/PlanSoft.pdf"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8l-5-5Z"/><path d="M14 3v5h5"/></svg>Przegląd możliwości programu</a></li>
+            <li><a class="file-link" href="http://plansoft.org/wp-content/uploads/pdf/Dodatki.pdf"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8l-5-5Z"/><path d="M14 3v5h5"/></svg>Rzadziej używane funkcjonalności</a></li>
+          </ul>
+          <div class="grp" style="margin-top:14px;">Integracje</div>
+          <ul>
+            <li><a class="file-link" href="http://plansoft.org/wp-content/uploads/pdf/Integracja_z_USOS.pdf"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8l-5-5Z"/><path d="M14 3v5h5"/></svg>Integracja z systemem USOS</a></li>
+            <li><a class="file-link" href="http://plansoft.org/wp-content/uploads/pdf/Integracja_z_Bazus.pdf"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8l-5-5Z"/><path d="M14 3v5h5"/></svg>Integracja z systemem BAZUS</a></li>
+            <li><a class="file-link" href="http://plansoft.org/wp-content/uploads/pdf/Integracja_z_AmericanSystems.pdf"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8l-5-5Z"/><path d="M14 3v5h5"/></svg>Integracja z systemem American Systems</a></li>
+          </ul>
+        </div>
+
+        <div class="download-col">
+          <h3>Dla analityków</h3>
+          <div class="sub">Dokumentacja techniczna bazy danych i API</div>
+          <ul>
+            <li><a class="file-link" href="http://plansoft.org/wp-content/uploads/pdf/Diagram%20tabel.pdf"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8l-5-5Z"/><path d="M14 3v5h5"/></svg>Diagram tabel</a></li>
+            <li><a class="file-link" href="http://plansoft.org/wp-content/uploads/pdf/API.pdf"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8l-5-5Z"/><path d="M14 3v5h5"/></svg>API</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="download-banner">
+        <p>Potrzebujesz pomocy z instalacją?<span>Zapewniamy bezpłatną pomoc w instalacji programu.</span></p>
+        <a href="#kontakt" class="btn btn-outline" style="background:#fff;">Napisz do nas</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ REFERENCJE ============ -->
+  <section class="section soft" id="referencje">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Referencje</span>
+        <h2>Zaufały nam uczelnie i instytucje w całej Polsce</h2>
+      </div>
+
+      <div class="pdf-grid">
+        <a class="pdf-chip" href="https://soft.home.pl//plansoft/wp-content/uploads/ref/ans-referencje.pdf" target="_blank" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8l-5-5Z"/><path d="M14 3v5h5"/></svg>
+          Akademia Nauk Stosowanych, Lublin</a>
+        <a class="pdf-chip" href="http://soft.home.pl//plansoft/wp-content/uploads/ref/ur-referencje.pdf" target="_blank" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8l-5-5Z"/><path d="M14 3v5h5"/></svg>
+          Uniwersytet Rolniczy, Kraków</a>
+        <a class="pdf-chip" href="http://soft.home.pl//plansoft/wp-content/uploads/ref/wat-referencje.pdf" target="_blank" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8l-5-5Z"/><path d="M14 3v5h5"/></svg>
+          Wojskowa Akademia Techniczna, Warszawa</a>
+        <a class="pdf-chip" href="http://soft.home.pl//plansoft/wp-content/uploads/ref/ssw-referencje.pdf" target="_blank" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8l-5-5Z"/><path d="M14 3v5h5"/></svg>
+          Sopocka Akademia Nauk Stosowanych</a>
+        <a class="pdf-chip" href="http://soft.home.pl//plansoft/wp-content/uploads/ref/pw-referencje.pdf" target="_blank" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8l-5-5Z"/><path d="M14 3v5h5"/></svg>
+          Wydział Architektury PW, Warszawa</a>
+        <a class="pdf-chip" href="http://soft.home.pl//plansoft/wp-content/uploads/ref/plwm-referencje.pdf" target="_blank" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8l-5-5Z"/><path d="M14 3v5h5"/></svg>
+          Wydział Mechaniczny Politechniki Lubelskiej</a>
+      </div>
+
+      <h3 class="mt-56">Uczelnie korzystające z oprogramowania Plansoft.org</h3>
+      <div class="uni-grid">
+        <a href="http://www.wat.edu.pl/" target="_blank" rel="noopener">Wojskowa Akademia Techniczna, wszystkie Wydziały</a>
+        <a href="http://www.ssw.sopot.pl/" target="_blank" rel="noopener">Sopocka Szkoła Wyższa</a>
+        <a href="https://wab.edu.pl" target="_blank" rel="noopener">Wrocławska Akademia Biznesu</a>
+        <a href="http://www.pswbp.pl/" target="_blank" rel="noopener">Akademia Bialska Nauk Stosowanych</a>
+        <a href="http://www.pollub.pl/" target="_blank" rel="noopener">Politechnika Lubelska, Wydział Mechaniczny</a>
+        <a href="https://www.amw.gdynia.pl/index.php" target="_blank" rel="noopener">Akademia Marynarki Wojennej</a>
+        <a href="https://wssp.edu.pl/" target="_blank" rel="noopener">WSSP im. Wincentego Pola w Lublinie</a>
+        <a href="https://urk.edu.pl/" target="_blank" rel="noopener">Uniwersytet Rolniczy w Krakowie</a>
+        <a href="https://urk.edu.pl/" target="_blank" rel="noopener">Akademia Nauk Stosowanych w Lublinie</a>
+        <a href="http://www.agh.edu.pl/" target="_blank" rel="noopener">AGH w Krakowie, Katedra Informatyki</a>
+        <a href="http://www.filmschool.lodz.pl//" target="_blank" rel="noopener">Łódzka Szkoła Filmowa</a>
+        <a href="http://www.oig.ug.edu.pl//" target="_blank" rel="noopener">Uniwersytet Gdański, Wydział Geografii</a>
+        <a href="https://pwsz-gniezno.edu.pl/" target="_blank" rel="noopener">PWSZ im. Hipolita Cegielskiego w Gnieźnie</a>
+        <a href="http://www.biotech.uni.wroc.pl/" target="_blank" rel="noopener">Uniwersytet Wrocławski, Wydział Biotechnologii</a>
+        <a href="http://www.arch.pw.edu.pl/" target="_blank" rel="noopener">Politechnika Warszawska: Architektura, Inż. Środowiska</a>
+      </div>
+
+      <h3 class="mt-56">Firmy korzystające z rozwiązań wdrożonych przez Software Factory</h3>
+      <div class="logo-cloud">
+        <div class="logo-tile"><img src="assets/logos/pkp.gif" alt="PKP" loading="lazy"></div>
+        <div class="logo-tile"><img src="assets/logos/ciech.jpg" alt="Ciech" loading="lazy"></div>
+        <div class="logo-tile"><img src="assets/logos/dalkia.jpg" alt="Dalkia" loading="lazy"></div>
+        <div class="logo-tile"><img src="assets/logos/ppl.jpg" alt="PPL" loading="lazy"></div>
+        <div class="logo-tile"><img src="assets/logos/tesco.jpg" alt="Tesco" loading="lazy"></div>
+        <div class="logo-tile"><img src="assets/logos/pansa.jpg" alt="PANSA" loading="lazy"></div>
+        <div class="logo-tile"><img src="assets/logos/polpharma.jpg" alt="Polpharma" loading="lazy"></div>
+        <div class="logo-tile"><img src="assets/logos/ruch.jpg" alt="Ruch" loading="lazy"></div>
+        <div class="logo-tile"><img src="assets/logos/tzmo.jpg" alt="TZMO" loading="lazy"></div>
+        <div class="logo-tile"><img src="assets/logos/aegon.png" alt="Aegon" loading="lazy"></div>
+        <div class="logo-tile"><img src="assets/logos/vattenfall.png" alt="Vattenfall" loading="lazy"></div>
+        <div class="logo-tile"><img src="assets/logos/raiffeisen.png" alt="Raiffeisen" loading="lazy"></div>
+        <div class="logo-tile"><img src="assets/logos/JohnsonJohnson.png" alt="Johnson & Johnson" loading="lazy"></div>
+        <div class="logo-tile"><img src="assets/logos/police.jpg" alt="Grupa Azoty Police" loading="lazy"></div>
+        <div class="logo-tile"><img src="assets/logos/Arimr.jpg" alt="ARiMR" loading="lazy"></div>
+        <div class="logo-tile"><img src="assets/logos/pzuzycie.png" alt="PZU Życie" loading="lazy"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section class="section" id="faq">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Informacje / FAQ</span>
+        <h2>Najczęściej zadawane pytania</h2>
+        <p>Lista najczęściej zadawanych pytań o Plansoft.org.</p>
+      </div>
+
+      <div class="faq-list">
+        <details class="faq-item" open>
+          <summary>Jak wiele osób jednocześnie może planować zajęcia? <span class="plus">+</span></summary>
+          <p>Zajęcia mogą być planowane jednocześnie przez dowolną liczbę osób. Program na bieżąco weryfikuje rozkłady zajęć i uniemożliwia powstanie konfliktów polegających na użyciu tego samego zasobu wielokrotnie w tym samym czasie.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Czy program można użyć w szerszym aspekcie planowania, np. do planowania dyżurów? <span class="plus">+</span></summary>
+          <p>Tak. Program można użyć do planowania zarówno rozkładów zajęć, jak również do rezerwowania sal wykładowych, ciągów klimatyzacyjnych, innych zasobów, do planowania dyżurów nauczycielskich, ale także do planowania np. służb, patroli, absencji. W programie możemy tworzyć nowe formy rezerwacji (np. absencja), a dla zasobów można definiować atrybuty opisujące te zasoby (np. rozmiar dysku twardego wypożyczanego laptopa).</p>
+        </details>
+        <details class="faq-item">
+          <summary>Czy program sam układa rozkłady zajęć? <span class="plus">+</span></summary>
+          <p>Nie. Baza danych Plansoft.org może zostać zasilona przez inny system — struktura tabel Plansoft.org jest jawna, stosunkowo prosta i udokumentowana.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Czy program posiada wsparcie w zakresie planowania zajęć z przedmiotów obieralnych i dzielenia rocznika na podgrupy oraz wykrywania kolizji? <span class="plus">+</span></summary>
+          <p>Tak.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ KONTAKT ============ -->
+  <section class="section soft" id="kontakt">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Kontakt</span>
+        <h2>Porozmawiajmy o Twojej Uczelni</h2>
+        <p>Plan zajęć, rezerwowanie sal i zasobów — napisz, zadzwoń albo umów bezpłatne demo.</p>
+      </div>
+
+      <div class="contact-wrap">
+        <div class="contact-card">
+          <div class="contact-row">
+            <span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 21V8l8-5 8 5v13"/><path d="M9 21v-6h6v6"/></svg></span>
+            <div><p>Firma</p><strong><a href="http://soft.home.pl" target="_blank" rel="noopener">Software Factory</a></strong></div>
+          </div>
+          <div class="contact-row">
+            <span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></svg></span>
+            <div><p>Opiekun</p><strong>Maciej</strong></div>
+          </div>
+          <div class="contact-row">
+            <span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 4h4l2 5-2.5 1.5a12 12 0 006 6L16 14l5 2v4a2 2 0 01-2 2C10.5 22 2 13.5 2 5a2 2 0 012-1Z"/></svg></span>
+            <div><p>Telefon</p><strong><a href="tel:+48604224658">604 22 46 58</a></strong></div>
+          </div>
+          <div class="contact-row">
+            <span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>
+            <div><p>E-mail</p><strong><a href="mailto:soft@plansoft.org">soft@plansoft.org</a></strong></div>
+          </div>
+          <a href="mailto:soft@plansoft.org" class="btn btn-primary" style="margin-top:6px;">Napisz e-mail</a>
+        </div>
+
+        <div class="whatsapp-card">
+          <div class="ic-lg">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5.1-1.3A10 10 0 1012 2Zm5.7 14.3c-.24.68-1.4 1.3-1.94 1.38-.5.08-1.13.11-1.82-.11-.42-.13-.96-.31-1.65-.6-2.9-1.25-4.8-4.17-4.94-4.37-.14-.2-1.18-1.57-1.18-3s.75-2.13 1.02-2.42c.26-.29.57-.36.76-.36h.55c.18 0 .42-.07.65.5.24.58.81 2 .88 2.15.07.14.12.32.02.51-.1.2-.15.32-.3.5-.14.17-.3.38-.43.5-.14.14-.29.29-.13.57.17.29.75 1.24 1.6 2.01 1.1 1 2.03 1.32 2.32 1.47.29.14.46.12.63-.07.17-.2.72-.83.91-1.12.19-.28.38-.24.63-.14.26.1 1.66.79 1.94.93.29.15.48.22.55.34.07.14.07.75-.17 1.43Z"/></svg>
+          </div>
+          <h3>Potrzebujesz pomocy? Skontaktuj się z nami</h3>
+          <p>Napisz do nas na WhatsAppie — odpowiadamy szybko i konkretnie.</p>
+          <a href="https://wa.me/48604224658?text=Dzie%C5%84%20dobry%2C%20mam%20pytanie%20dotycz%C4%85ce%20Plansoft.org" class="btn btn-primary btn-block" target="_blank" rel="noopener">Otwórz WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#home" class="brand">
+          <span class="mark">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="7" height="7" rx="1.5" fill="#fff"/><rect x="13" y="4" width="7" height="7" rx="1.5" fill="#fff" opacity=".85"/><rect x="4" y="13" width="7" height="7" rx="1.5" fill="#fff" opacity=".85"/><rect x="13" y="13" width="7" height="7" rx="1.5" fill="#fff" opacity=".6"/></svg>
+          </span>
+          Plansoft.org
+        </a>
+        <p>Plan zajęć, rezerwowanie sal i zasobów. System planowania rozkładów zajęć, wizyt i zasobów dla uczelni wyższych.</p>
+        <a href="https://www.facebook.com/Plansoft.org/" class="footer-social" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-7.6h2.6l.4-3h-3v-1.9c0-.87.24-1.46 1.5-1.46h1.6V4.35C15.9 4.24 15 4.16 13.96 4.16c-2.16 0-3.64 1.32-3.64 3.74v2.1H8v3h2.32V21h3.18Z"/></svg>
+        </a>
+      </div>
+      <nav class="footer-nav">
+        <div>
+          <h4>Nawigacja</h4>
+          <ul>
+            <li><a href="#home">Informacje</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#wdrozenie">Wdrożenie</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Zasoby</h4>
+          <ul>
+            <li><a href="#pobierz">Pobierz</a></li>
+            <li><a href="#referencje">Referencje</a></li>
+            <li><a href="#kontakt">Kontakt</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Plansoft.org — Software Factory. Wszelkie prawa zastrzeżone.</span>
+      <span>Zaprojektowano i zbudowane od nowa — nowoczesna wersja statyczna.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/script.js"></script>
+</body>
+</html>
