@@ -362,30 +362,31 @@ h3 { font-size: 21px; }
 
 /* ---------------- Diagram / problem section ---------------- */
 
-.problem-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 56px;
-  align-items: center;
-}
+.problem-text p { color: var(--ink-soft); font-size: 16.5px; }
+.problem-text p + p { margin-top: 14px; }
 
-.problem-grid p { color: var(--ink-soft); font-size: 16.5px; }
-.problem-grid p + p { margin-top: 14px; }
-
-.diagram-card {
+/* Shared "standalone framed image" card, used for both the dependency
+   diagram and the mindmap — same treatment so they read as one system. */
+.frame-card {
   background: #fff;
   border-radius: var(--radius-lg);
-  padding: 28px;
   box-shadow: var(--shadow-card);
   border: 1px solid var(--line);
+  padding: 30px;
+  max-width: 900px;
+  margin: 0 auto;
 }
-.diagram-card img { width: 100%; height: auto; }
-.diagram-card .cap {
+.frame-card img { width: 100%; height: auto; border-radius: var(--radius-sm); }
+.frame-card .cap {
   margin-top: 16px;
-  font-size: 13.5px;
+  font-size: 14px;
   color: var(--ink-soft);
   text-align: center;
 }
+
+.problem-text { max-width: 760px; margin: 0 auto 48px; }
+.problem-text .eyebrow { margin-bottom: 16px; }
+.problem-text h2 { margin-bottom: 18px; }
 
 .img-scroll { overflow-x: visible; }
 .scroll-hint { display: none; }
@@ -444,19 +445,6 @@ h3 { font-size: 21px; }
 .benefit-card h3 { font-size: 17.5px; }
 .benefit-card p { margin: 0; color: var(--ink-soft); font-size: 14.5px; }
 
-/* ---------------- Mindmap / overview ---------------- */
-
-.overview-card {
-  background: #fff;
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-card);
-  border: 1px solid var(--line);
-  padding: 30px;
-  max-width: 900px;
-  margin: 0 auto;
-}
-.overview-card img { border-radius: var(--radius-sm); }
-.overview-card .cap { text-align: center; margin-top: 18px; color: var(--ink-soft); font-size: 14.5px; }
 
 /* ---------------- Wdrożenie / stepper ---------------- */
 
@@ -810,7 +798,6 @@ h3 { font-size: 21px; }
 @media (max-width: 980px) {
   .hero .container { grid-template-columns: 1fr; }
   .hero-art { order: -1; }
-  .problem-grid { grid-template-columns: 1fr; }
   .card-grid { grid-template-columns: repeat(2, 1fr); }
   .download-grid { grid-template-columns: 1fr 1fr; }
   .info-cols { grid-template-columns: 1fr; }
@@ -877,7 +864,7 @@ h3 { font-size: 21px; }
   .hero-art .cal-col:nth-child(4), .hero-art .cal-col:nth-child(5) { display: none; }
   .hero-art .block { font-size: 10px; padding: 8px 6px; min-height: 30px; }
 
-  .diagram-card, .overview-card, .info-box, .download-col { padding: 18px; }
+  .frame-card, .info-box, .download-col { padding: 18px; }
 
   /* The dependency diagram & mindmap have small dense labels — instead of
      scaling them down to illegible size, let them scroll horizontally
