@@ -777,6 +777,8 @@ h3 { font-size: 21px; }
   padding-top: 22px;
   font-size: 13px;
 }
+.footer-bottom a { text-decoration: underline; text-underline-offset: 2px; }
+.footer-bottom a:hover { color: #fff; }
 .footer-social {
   width: 38px; height: 38px;
   border-radius: 10px;
@@ -886,3 +888,85 @@ h3 { font-size: 21px; }
   .hero-stats { gap: 18px 22px; }
   .logo-cloud { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* ---------------- Cookie consent banner ---------------- */
+
+.cookie-banner {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  background: var(--bg-dark);
+  box-shadow: 0 -12px 30px -10px rgba(0, 0, 0, 0.35);
+  padding: 18px 24px;
+  padding-bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+}
+
+.cookie-banner[hidden] { display: none; }
+
+.cookie-banner-inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.cookie-banner-inner p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 640px;
+}
+
+.cookie-banner-actions {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 560px) {
+  .cookie-banner-inner { flex-direction: column; align-items: stretch; }
+  .cookie-banner-actions .btn { flex: 1 1 0; }
+}
+
+/* ---------------- Policy page ---------------- */
+
+.section-head h1 { font-size: clamp(28px, 3.6vw, 42px); }
+
+.policy-content { max-width: 720px; margin: 0 auto; }
+
+.policy-tldr {
+  background: rgba(91, 91, 246, 0.08);
+  border: 1px solid rgba(91, 91, 246, 0.18);
+  border-radius: var(--radius-md);
+  padding: 20px 22px;
+  margin-bottom: 8px;
+  font-size: 15.5px;
+  line-height: 1.6;
+}
+
+.policy-content h2 { font-size: 22px; margin-top: 42px; margin-bottom: 14px; }
+.policy-content h3 { font-size: 17px; margin-top: 26px; margin-bottom: 10px; }
+
+.policy-content p {
+  color: var(--ink-soft);
+  font-size: 15.5px;
+  margin: 0 0 14px;
+}
+
+.policy-content ul {
+  margin: 0 0 18px;
+  padding-left: 22px;
+  color: var(--ink-soft);
+  font-size: 15.5px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.policy-content a { color: var(--primary-ink); text-decoration: underline; }
