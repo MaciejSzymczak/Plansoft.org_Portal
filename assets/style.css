@@ -352,6 +352,8 @@ h3 { font-size: 21px; }
   box-shadow: var(--shadow-soft);
 }
 .badge-live .dot { width: 8px; height: 8px; border-radius: 50%; background: #35e08a; box-shadow: 0 0 0 4px rgba(53,224,138,0.25); }
+/* link do przykładowego rozkładu pod ilustracją kalendarza */
+.hero-art .hero-example { display: flex; width: 100%; margin-top: 18px; white-space: normal; text-align: center; }
 
 /* ---------------- Generic sections ---------------- */
 
