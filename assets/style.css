@@ -863,9 +863,16 @@ h3 { font-size: 21px; }
   .hero-stats { justify-content: center; text-align: left; row-gap: 14px; }
   .hero-art { padding: 16px; }
   .hero-art .badge-live { font-size: 11px; padding: 6px 10px; right: 12px; top: -12px; }
-  .hero-art .grid-cal { grid-template-columns: repeat(3, 1fr); gap: 6px; }
-  .hero-art .cal-col:nth-child(4), .hero-art .cal-col:nth-child(5) { display: none; }
-  .hero-art .block { font-size: 10px; padding: 8px 6px; min-height: 30px; }
+  /* Phone: each weekday becomes its own row (day label + 3 blocks) */
+  .hero-art .grid-cal { grid-template-columns: 1fr; gap: 6px; }
+  .hero-art .cal-col {
+    display: grid;
+    grid-template-columns: 40px repeat(3, minmax(0, 1fr));
+    align-items: stretch;
+    gap: 6px;
+  }
+  .hero-art .cal-head { text-align: left; padding-bottom: 0; align-self: center; }
+  .hero-art .block { font-size: 11px; padding: 8px 6px; min-height: 0; text-align: center; }
 
   .frame-card, .info-box, .download-col { padding: 18px; }
 
